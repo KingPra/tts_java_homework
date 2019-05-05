@@ -1,0 +1,42 @@
+package rock_paper_scissors;
+import java.util.*;
+
+public class rockPaperScissors {
+
+	static String [] hand = {"rock", "paper", "scissor"};
+	
+	public static void main(String[] arg) {
+		playRound();
+	};
+	
+	public static String getHand() {
+		Random rndm = new Random();
+		int randomNum = rndm.nextInt(3);
+		return hand[randomNum];
+	}
+	
+	
+	public static String userHand() {
+		Scanner userChoice = new Scanner(System.in);
+		System.out.println("Type rock, paper or scissor");
+		String userHand = userChoice.next();
+		userChoice.close();
+		return userHand;
+	}
+	
+	public static void playRound() {
+		//String p1 = userHand();
+		//String p2 = getHand();
+		String p1 = "rock";
+		String p2 = "scissor";
+		System.out.println("p1 is : " + p1 + " p2 is : " + p2);
+		
+		if (p1 == p2) {
+			System.out.println("Its a tie");
+		} else if (p1 == "rock" && p2 == "scissor") {
+			System.out.println("Player 1 wins");
+		} else {
+			System.out.println("Player 2 wins");
+		}
+	}
+}

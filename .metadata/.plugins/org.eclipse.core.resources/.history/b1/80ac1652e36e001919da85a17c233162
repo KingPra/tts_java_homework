@@ -1,0 +1,143 @@
+package glove_world3;
+import java.util.*;
+
+public class glove_world3 {
+
+	public static void main(String[] args) {
+		//cereal();
+		//user();
+		//rockPaperScissors();
+		// TODO Auto-generated method stub
+//		System.out.println("glove world 3 print out here");
+//		System.out.println("this is the other other line");
+//		System.out.print("this is line one. ");
+//		System.out.print("this is line two. ");
+//		System.out.print("This is line three. ");
+//		byte Num = (byte) 1293;
+//		byte Num2 = (byte) 1222;
+//		byte Num3 = (byte) 1393;
+//		System.out.println(Num);
+//		System.out.println(Num2);
+//		System.out.println(Num3);
+//		System.out.println("The answer is: " + Num);
+//		if(Num == Num2) {
+//			System.out.println("this is the first answer");
+//		} else {
+//			System.out.println("this is the second");
+//		
+//		}
+//		int x = 5;
+//		System.out.println("this is x before y " + x);
+//		int y = x++;
+//		if(x == 5) { 
+//			System.out.println("this is the first anwser " + x);
+//		} else {
+//			System.out.println("this is if x is 6 " + x);
+//		}
+//		
+//		int rippedPants[] = new int[10];
+//		for(int i = 0; i < rippedPants.length; i++) {
+//			rippedPants[i] = i + 1;
+//			System.out.println(rippedPants[i]);
+//		}
+//		
+//		String rippedPants2[] = new String[5];
+//		rippedPants2[0] = "thinktank";
+//		rippedPants2[1] = "two";
+//		rippedPants2[2] = "three";
+//		rippedPants2[3] = "four";
+//		rippedPants2[4] = "five";
+//		for (int i = 0; i < rippedPants2.length; i++) {
+//			System.out.println(String.format("%s is what we picked", rippedPants2[i]));
+//		}
+//		
+//		// new array with items;
+//		String[] rippedPants3 =  {"top", "bottom", "left", "right"};
+//		for(int i = 0; i < rippedPants3.length; i++) {
+//			System.out.println(String.format("%s is what we picked", rippedPants3[i]));
+//		}
+//		
+//		int j = 0;
+//		do {
+//			System.out.println("this is j " + j);
+//			j++;
+//		} while (j < 2);
+		
+	
+} 
+	// making cereal;
+//	public static void cereal() {
+//		int cereal = 10;
+//		int milk = 10;
+//		if (cereal > 0 && milk > 0) {
+//			cereal--;
+//			milk--;
+//			System.out.println("Open bowl cabinet cover.");
+//			System.out.println("Get clean bowl from bowl cabinet.");
+//			System.out.println("Close bowl cabinet cover.");
+//			System.out.println("Gently place bowl on counter.");
+//			System.out.println("Get cereal");
+//			System.out.println("Open cereal container");
+//			System.out.println("Pour desired amount of cereal into bowl");
+//			System.out.println("Set cereal container down on cabinet");
+//			System.out.println("Close cereal container");
+//			System.out.println("Go to fridge");
+//			System.out.println("Open fridge");
+//			System.out.println("Get milk container");
+//			System.out.println("Go to counter");
+//			System.out.println("Open milk container");
+//			System.out.println("Pour desired amount of milk into bowl");
+//			System.out.println("Put milk container down");
+//			System.out.println("Close milk container");
+//			System.out.println("Go to fridge");
+//			System.out.println("Put milk container in fridge");
+//			System.out.println("Close fridge");
+//			System.out.println("Go to counter");
+//			System.out.println("Spoon magically appears");
+//			System.out.println("Get spoon");
+//		} else {
+//			System.out.println("You don't have all the neccesary supplies");
+//		}
+//	}
+//	
+//	public static String user() {
+//		Scanner name = new Scanner(System.in); //creates a scanner object;
+//		System.out.print("Enter username");
+//		String username = name.nextLine();
+//		name.close();
+//		System.out.println("Username is : " + username);
+//		return username;
+//	}
+	
+	public static void rockPaperScissors() {
+		String [] hand = {"rock", "paper", "scissors"};
+		Scanner name = new Scanner(System.in);
+		System.out.print("Enter username: ");
+		String username = name.nextLine();
+		
+		Scanner choice = new Scanner(System.in);
+		System.out.print("Choose rock, paper or scissors");
+		String userChoice = choice.nextLine(); 
+		
+		System.out.println("Username is: " + username);
+		System.out.println("Your choice is: " + userChoice);
+		
+		Random random = new Random();
+		int computerChoice = random.nextInt(3);
+		System.out.println(computerChoice);
+		name.close();
+		choice.close();
+		
+		
+		int simpleArr[] = {1,2,3,4,5,6,7,8,9};
+		
+		// standard for loop
+		for (int i = 0; i < simpleArr.length; i++) {
+			System.out.println("this round is " + i);
+		}
+	
+}
+	}
+
+
+

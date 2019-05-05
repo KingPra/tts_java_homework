@@ -1,0 +1,32 @@
+package rock_paper_scissors;
+import java.util.*;
+
+public class rockPaperScissors {
+
+	static String [] hand = {"rock", "paper", "scissor"};
+	
+	public static void main(String[] arg) {
+		//getHand();
+	userHand();
+	};
+	
+	public static String getHand() {
+		Random rndm = new Random();
+		int randomNum = rndm.nextInt(3);
+		System.out.println(hand[randomNum]);
+		return hand[randomNum];
+	}
+	
+	
+	public static void userHand() {
+		Scanner userChoice = new Scanner(System.in);
+		System.out.println("Type rock, paper or scissor");
+		String userHand = userChoice.nextLine();
+		System.out.println("user chose: " + userHand);
+		userChoice.close();
+	}
+	
+	public static void playRound() {
+		getHand();
+	}
+}

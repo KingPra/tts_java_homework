@@ -1,0 +1,14 @@
+package robot;
+
+public class Robot {
+	public static void main() {
+		
+	}
+	String name;
+	String color;
+	int weight;
+	
+	public static void greeting() {
+		System.out.println("hello my name is " + name);
+	}
+}

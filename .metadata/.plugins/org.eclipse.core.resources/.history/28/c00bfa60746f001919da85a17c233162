@@ -1,0 +1,18 @@
+package rock_paper_scissors;
+import java.util.*;
+
+public class rockPaperScissors {
+
+	String [] hand = {"rock", "paper", "scissor"};
+	
+	public static void main(String[] arg) {
+		getHand();
+	};
+	
+	public static void getHand() {
+		Random rndm = new Random();
+		int compChoice = rndm.nextInt(3);
+		System.out.println(compChoice);
+	}
+	
+}
