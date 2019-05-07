@@ -12,9 +12,9 @@ public class Blackjack {
 	static int deck[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
 	public static void main(String[] arg) {
-		System.out.println(player1());
+		// System.out.println(player1());
 		compHands();
-		// player1();
+		player1();
 
 //		 playGame(playerHand, compHand);
 	}
@@ -29,23 +29,35 @@ public class Blackjack {
 
 //	}
 
-	public static int player1() {
+	public static void player1() {
 		Vector p1Hands = new Vector();
+		// starts game off with 2 hands for player 1
 		while (p1Hands.size() < 2) {
 			p1Hands.add(hand());
 		}
+		// prints out both hands for player 1;
 		for (int i = 0; i < p1Hands.size(); i++) {
 			System.out.println("Player One hand " + p1Hands.get(i));
 		}
+		// adds hand to player 1;
 		addHands(p1Hands);
+		// if player 1's hand is less than 21, ask player one if they want to hit, stay
+		// or fold
 		if (addHands(p1Hands) < 21) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Would you like to hit, stay or fold?");
 			String userChoice = scanner.next();
-			System.out.println("user choice is: " + userChoice);
-
+			// if player one "hits", add hand to Vector, print out new hand and recheck;
+			while (userChoice.equals("hit") && addHands(p1Hands) < 21) {
+				p1Hands.add(hand());
+				int currentHandSize = p1Hands.size();
+				System.out.println("Player One hand " + p1Hands.get(currentHandSize - 1));
+				System.out.println("Would you like to hit, stay or fold?");
+				System.out.println("add hands is: " + addHands(p1Hands));
+				userChoice = scanner.next();
+			}
 		}
-		return addHands(p1Hands);
+		// return addHands(p1Hands);
 	}
 
 	public static int addHands(Vector vector) {
@@ -53,6 +65,7 @@ public class Blackjack {
 		for (int i = 0; i < vector.size(); i++) {
 			sum += (int) vector.get(i);
 		}
+		System.out.println("player hand total is: " + sum);
 		return sum;
 	}
 
