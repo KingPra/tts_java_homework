@@ -100,11 +100,12 @@ public class Tournament extends Team {
 		// checks for odd numbers
 		Team oddTeam = isThisOdd(arr);
 
-		// plays first and last teams and returns winner
+		// plays first and last teams and returns winner as long as there's a minimum of
+		// 2 teams
+		// in the teamsArr.
 		// for (int i = 0; arr.size() > 0; i++)
 		int loopCounter = 0;
-		while (arr.size() > 0) {
-
+		while (arr.size() > 1) {
 			Team t1 = (Team) arr.get(0);
 			Team t2 = (Team) arr.get(arr.size() - 1);
 			// testing start
@@ -113,37 +114,84 @@ public class Tournament extends Team {
 			System.out.println("winnter arrray size  is : " + winners.size());
 			System.out.println("t1 and t2 is" + t1.getName() + " " + t2.getName());
 			// testing end
-			winners.add(playRound(t1, t2));
-			// prints out the round, shows team vs team and the outcome of that gaem
+			winners.add(playRound(t1, t2));// this method is the logic for finding winner per round.
+			// prints out the round, shows team vs team and the outcome of that game
+			// once the team plays against each other, they are removed
+			// from the teamsArr and stored in winnersArr.
 			System.out.println("round " + (loopCounter + 1));
 			System.out.println("Team " + t1.getName() + " vs Team " + t2.getName());
 			System.out.println("And the  winner is : " + winners.get((winners.size() - 1)).getName() + '\n');
-			arr.remove(0);
-			arr.remove(arr.get(arr.size() - 1));
-			System.out.println("this is the end of the for loop,  array size is now: " + arr.size());
-			// this is a test
+			arr.remove(0); // removes 1st team.
+			arr.remove(arr.get(arr.size() - 1)); // removes last team.
+			//////////////////////// testing start/////////////////////////
+			System.out.println("this is the end of the for loop,  teams array size is now: " + arr.size());
+			System.out.println("this is the end of the for loop,  winners array size is now: " + winners.size() + " "
+					+ winners.get(winners.size() - 1).getName());
+			//////////////////////// testing end///////////////////////////
 			loopCounter++;
+			// this is a test
+			// if there is a by team, this puts that team back into the game
+			// after 1 round has been played.
 			if (oddTeam != null) {
-				// --i;
+				// because we want the best to play against the worst
+				// this 'if' should provide a way for the winner of the
+				// last round to play against the by week team.
 				System.out.println("the odd team if statement: " + oddTeam.getName());
 				System.out.println();
-				winners.add(winners.size() - 1, oddTeam);
+				winners.add(0, oddTeam);
 				oddTeam = null;
-
+				//////////////////////// testing start/////////////////////////
+				System.out.println("inside the of team if statement... teams array size is now: " + arr.size());
+				System.out.println("inside the of team if statement... winners array size is now: " + winners.size()
+						+ " " + winners.get(0).getName());
+				//////////////////////// testing end///////////////////////////
+				Object oddWinner = playRound(t1, t2);
+				winners.clear();
+				winners.add((Team) oddWinner);
+				//////////////////////// testing start/////////////////////////
+				System.out.println("inside the of team if statement... teams array size is now: " + arr.size());
+				System.out.println("inside the of team if statement... winners array size is now: " + winners.size()
+						+ " " + winners.get(0).getName());
+				//////////////////////// testing end///////////////////////////
 			}
 			// this is the end of test
 		}
 
+		// tournament rounds
 		int i = 0;
 		Team champ = null;
-		while (i < winners.size() && winners.size() > 2) {
+		ArrayList<Team> tournamentArr = new ArrayList<>();
+		while (winners.size() > 2) {
+
 			i++;
+			// tournamentArr.add(playRound(winners.get(0), winners.get(winners.size() -
+			// 1)));
+			//////////////////////// testing start/////////////////////////
+			System.out.println(
+					"inside the of tournament if statement before the game is played... winners array size is now: "
+							+ winners.size());
+			System.out.println("inside the of tournament if statement before the game is played... teams : "
+					+ ((Team) winners.get(0)).getName() + " " + ((Team) winners.get(winners.size() - 1)).getName());
+			System.out.println("inside the of tournament if statement... winners array size is now: " + winners.size()
+					+ " " + winners.get(0).getName());
+			//////////////////////// testing end///////////////////////////
 			champ = playRound(winners.get(0), winners.get(winners.size() - 1));
 			winners.remove(0);
 			winners.remove(winners.size() - 1);
-			System.out.println("the winner is " + champ.getName() + " and the array size is " + winners.size());
+			winners.add(1, champ);
+			System.out.println("Tournament Round " + i + " the winner is " + champ.getName() + " and the array size is "
+					+ winners.size());
 			System.out.println();
+			//////////////////////// testing start/////////////////////////
+			System.out.println("inside the of tournament if statement... teams array size is now: " + arr.size());
+			System.out.println("inside the of tournament if statement... teams : " + ((Team) winners.get(0)).getName()
+					+ " " + ((Team) winners.get(winners.size() - 1)).getName());
+			System.out.println("inside the of tournament if statement... winners array size is now: " + winners.size()
+					+ " " + winners.get(0).getName());
+			//////////////////////// testing end///////////////////////////
 		}
+		// this works but it only allows the by week team
+		// to play in tournament instead of after the first round.
 //		if (oddTeam != null) {
 //			System.out.println("the odd team if statement: " + oddTeam.getName());
 //			System.out.println();
@@ -154,10 +202,13 @@ public class Tournament extends Team {
 //			System.out.println();
 //			teamsArr.clear();
 //		}
-		System.out.println(
-				"Team " + winners.get(0).getName() + " vs " + " Team " + winners.get(winners.size() - 1).getName());
-
-		System.out.println("The tournament champion is " + winners.get(0).getName());
+		// System.out.println("Team " + champ.getName());
+		System.out.println("Final Game: '\n' Team " + winners.get(0).getName() + " vs Team "
+				+ winners.get(winners.size() - 1).getName());
+		;
+		Team winnerOfTournament = playRound(winners.get(0), winners.get(winners.size() - 1));
+		// System.out.println("The tournament champion is " + winners.get(0).getName());
+		System.out.println("The tournament winner is " + winnerOfTournament.getName());
 		System.out.println();
 		teamsArr.clear();
 	}
