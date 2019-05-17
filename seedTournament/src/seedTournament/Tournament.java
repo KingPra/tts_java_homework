@@ -3,6 +3,7 @@ package seedTournament;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Tournament extends Team {
@@ -32,6 +33,13 @@ public class Tournament extends Team {
 		System.out.println("3. See Game");
 		System.out.println("4. Exit");
 		System.out.println();
+
+		// makes sure we have an integer
+		while (!scanner.hasNextInt()) {
+			System.out.println("Your entry is not valid. Please chose a number between 1-4.");
+			menuCheck(menu());
+
+		}
 		int reply = scanner.nextInt();
 		return reply;
 	}
@@ -160,12 +168,8 @@ public class Tournament extends Team {
 		// tournament rounds
 		int i = 0;
 		Team champ = null;
-		ArrayList<Team> tournamentArr = new ArrayList<>();
 		while (winners.size() > 2) {
-
 			i++;
-			// tournamentArr.add(playRound(winners.get(0), winners.get(winners.size() -
-			// 1)));
 			//////////////////////// testing start/////////////////////////
 			System.out.println(
 					"inside the of tournament if statement before the game is played... winners array size is now: "
@@ -190,18 +194,7 @@ public class Tournament extends Team {
 					+ " " + winners.get(0).getName());
 			//////////////////////// testing end///////////////////////////
 		}
-		// this works but it only allows the by week team
-		// to play in tournament instead of after the first round.
-//		if (oddTeam != null) {
-//			System.out.println("the odd team if statement: " + oddTeam.getName());
-//			System.out.println();
-//			winners.add(oddTeam);
-//			winners.add(champ);
-//			Team newChamp = playRound(winners.get(0), winners.get(1));
-//			System.out.println("the odd winner is " + newChamp.getName() + " and the array size is " + winners.size());
-//			System.out.println();
-//			teamsArr.clear();
-//		}
+
 		// System.out.println("Team " + champ.getName());
 		System.out.println("Final Game: '\n' Team " + winners.get(0).getName() + " vs Team "
 				+ winners.get(winners.size() - 1).getName());
@@ -218,25 +211,46 @@ public class Tournament extends Team {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("How many teams would you like to create? ");
 		System.out.println();
+
+		while (!scanner.hasNextInt()) {
+			System.out.println("Invalid character. Please enter numeric values only");
+			createTeams();
+		}
 		int amount = scanner.nextInt();
 		int loopCounter = 0;
+
 		for (int i = 0; i < amount; i++) {
 			loopCounter++;
 			Scanner scanner2 = new Scanner(System.in);
 			System.out.println("Type in team # " + loopCounter + ",  name: ");
 			System.out.println();
 			String teamName = scanner2.nextLine();
-			System.out.println("Set team # " + loopCounter + "'s rank: ");
-			int rank = scanner2.nextInt();
+//////////////////////start test/////////////////////
+			int rank = 0;
+			Scanner in = new Scanner(System.in);
+			// This will be set to true when numeric val entered
+			boolean isNumeric = false;
+			while (!isNumeric)
+				try {
+					System.out.println("2.Set team # " + loopCounter + "'s rank: ");
+					rank = in.nextInt();
+					in.nextLine();
+					isNumeric = true;
+					// numeric value entered, so break the while loop
+				} catch (InputMismatchException ime) {
+					// Display Error message
+					System.out.println("Invalid character found,Please enter numeric values only !!");
+					in.nextLine();// Advance the scanner
+				}
+//////////////////////////end test//////////////////
 			teamsArr.add(new Team(teamName, rank));
-
 			Collections.sort(teamsArr, new Comparator<Team>() {
 				public int compare(Team t1, Team t2) {
 					return Integer.valueOf(t1.getSeed()).compareTo(t2.getSeed());
 				}
 			});
-
 		}
+
 	}
 
 	// gives two teams a random score and returns the winner
