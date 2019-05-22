@@ -17,7 +17,7 @@ public class Tournament extends Team {
 
 	public static boolean tracker = false;
 
-	public static int menu() {
+	public static String menu() {
 		while (tracker) {
 			tracker = true;
 			System.out.println("Welcome to the tournament. Please Select from the following options: ");
@@ -29,26 +29,19 @@ public class Tournament extends Team {
 		System.out.println("1. Create Teams");
 		System.out.println("2. List Teams");
 		System.out.println("3. See Game");
-		System.out.println("4. Exit");
-		System.out.println("5. Remove All Teams");
+		System.out.println("4. Remove All Teams");
+		System.out.println("5. Exit");
 		System.out.println();
-
-		// makes sure we have an integer
-		while (!scanner.hasNextInt()) {
-			System.out.println("Your entry is not valid. Please chose a number between 1-4.");
-			menuCheck(menu());
-
-		}
-		int reply = scanner.nextInt();
+		String reply = scanner.nextLine();
 		return reply;
 	}
 
 	// logic for checking menu
-	public static void menuCheck(int reply) {
-		if (reply == 1) {
+	public static void menuCheck(String reply) {
+		if (reply.equals("1")) {
 			createTeams();
 			menuCheck(menu());
-		} else if (reply == 2) {
+		} else if (reply.equals("2")) {
 			if (teamsArr.size() == 0) {
 				Scanner scanner = new Scanner(System.in);
 				System.out
@@ -68,7 +61,7 @@ public class Tournament extends Team {
 				menuCheck(menu());
 			}
 
-		} else if (reply == 3) {
+		} else if (reply.equals("3")) {
 			if (teamsArr.size() == 0) {
 				createTeams();
 				listTeams(teamsArr);
@@ -77,16 +70,16 @@ public class Tournament extends Team {
 				playTournament(teamsArr);
 				menuCheck(menu());
 			}
-		} else if (reply == 4) {
-			System.out.println();
-			System.out.println("Goodbye");
-
-		} else if (reply == 5) {
+		} else if (reply.equals("4")) {
 			clearAll(teamsArr);
 			menuCheck(menu());
 
+		} else if (reply.equals("5")) {
+			System.out.println("\nGoodbye\n");
+
 		} else {
-			while (reply != 1 || reply != 2 || reply != 3 || reply != 4 || reply != 5) {
+			while (reply.equals("1") || reply.equals("2") || reply.equals("3") || reply.equals("4")
+					|| reply.equals("5")) {
 				System.out.println("Your option is invalid");
 				System.out.println();
 				menu();
@@ -98,7 +91,8 @@ public class Tournament extends Team {
 	// method for listing teams
 	public static void listTeams(ArrayList arr) {
 		for (int i = 0; i < arr.size(); i++) {
-			System.out.println("Team: " + ((Team) arr.get(i)).getName() + " rank: " + ((Team) arr.get(i)).getSeed());
+			System.out.println("Team: " + ((Team) arr.get(i)).getName() + " rank: " + ((Team) arr.get(i)).getSeed()
+					+ "\nTotal wins overall : " + ((Team) arr.get(i)).getWins());
 		}
 	}
 
@@ -214,17 +208,16 @@ public class Tournament extends Team {
 		((Team) t1).setScore(randomNum());
 		((Team) t2).setScore(randomNum());
 		Team winner = null;
-
 		if (t1.getScore() > t2.getScore()) {
 			winner = t1;
-			// return t1;
+			winner.setWins(winner.getWins() + 1);
+
 		} else if (t1.getScore() < t2.getScore()) {
-			// System.out.println("Team " + t2.getName() + " wins");
 			winner = t2;
-			// return t2;
+			winner.setWins(winner.getWins() + 1);
 		} else {
 			System.out.println(" Team " + t1.getName() + " vs Team " + t2.getName() + "\nTie Game");
-			return winner;
+
 		}
 		System.out.println(" Team " + t1.getName() + " vs Team " + t2.getName());
 		System.out.println("Team " + t1.getName() + " scored " + t1.getScore() + "\nTeam " + t2.getName() + " scored "
