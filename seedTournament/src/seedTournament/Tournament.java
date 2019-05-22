@@ -74,7 +74,7 @@ public class Tournament extends Team {
 				listTeams(teamsArr);
 				menuCheck(menu());
 			} else {
-				teamMatch(teamsArr);
+				playTournament(teamsArr);
 				menuCheck(menu());
 			}
 		} else if (reply == 4) {
@@ -119,38 +119,45 @@ public class Tournament extends Team {
 	// calls on isThisOdd method to check for an odd number
 	// calls on playRound method to play round
 	// takes the main team arrayList as an arguement
-	public static void teamMatch(ArrayList arr) {
-		ArrayList<Team> teamsCopy = new ArrayList<>(arr);
+	public static void playTournament(ArrayList arr) {
+		ArrayList<Team> arrOfTeams = new ArrayList<>(arr);
 		// if the array is greater than 1 and the array is odd
 		// remove from array and store in oddTeam
-		Team oddTeam = isThisOdd(teamsCopy);
+		Team oddTeam = isThisOdd(arrOfTeams);
 		Team winner = null;
 		int counter = 0;
-		System.out.println("copylist size is " + teamsCopy.size());
-		if (teamsCopy.size() == 1 && oddTeam == null) {
-			System.out.println("Team " + teamsCopy.get(0).getName()
+		if (arrOfTeams.size() == 1 && oddTeam == null) {
+			System.out.println("Team " + arrOfTeams.get(0).getName()
 					+ " wins by default. Yaay but really you should add more teams.");
-		} else if (teamsCopy.size() == 2 && oddTeam == null) {
-			winner = playRound(teamsCopy.get(0), teamsCopy.get(1));
-			teamsCopy.clear();
+		} else if (arrOfTeams.size() == 2 && oddTeam == null) {
+			winner = playRound(arrOfTeams.get(0), arrOfTeams.get(1));
+			arrOfTeams.clear();
 			System.out.println("Winner of this tournament is " + winner.getName());
 		} else {
 			if (oddTeam != null) {
-				teamsCopy.add(1, oddTeam);
+				arrOfTeams.add(1, oddTeam);
 				oddTeam = null;
 			}
-			while (teamsCopy.size() > 2) {
+			while (arrOfTeams.size() > 2) {
 				counter++;
-				Team lastTeam = teamsCopy.get(teamsCopy.size() - 1);
-				int halfOfArr = Math.round(teamsCopy.size() / 2);
-				winner = playRound(teamsCopy.get(0), lastTeam);
-				teamsCopy.remove(0);
-				teamsCopy.remove(lastTeam);
-				teamsCopy.add(1, winner);
+				// this is logic for where to place the winner of the last round
+				// back into the arr, preferably in the middle.
+				int halfway = arrOfTeams.size();
+				if (arrOfTeams.size() > 3) {
+					halfway = Math.round((arrOfTeams.size() / 2) - 1);
+				} else {
+					halfway = Math.round(arrOfTeams.size() / 2);
+				}
+
+				Team lastTeam = arrOfTeams.get(arrOfTeams.size() - 1);
+				winner = playRound(arrOfTeams.get(0), lastTeam);
+				arrOfTeams.remove(0);
+				arrOfTeams.remove(lastTeam);
+				arrOfTeams.add(halfway, winner);
 				System.out.println("winner of round " + counter + " is " + winner.getName() + "\n");
 			}
 			System.out.println("\nFinal Game for the championship!");
-			winner = playRound(teamsCopy.get(0), winner);
+			winner = playRound(arrOfTeams.get(0), winner);
 			System.out.println("Champion of the tournament is Team " + winner.getName());
 			counter = 0;
 		}
